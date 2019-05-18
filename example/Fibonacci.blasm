@@ -1,0 +1,32 @@
+// File author is Ítalo Lima Marconato Matias
+//
+// Created on May 18 of 2019, at 14:59 BRT
+// Last edited on May 18 of 2019, at 15:32 BRT
+
+@Fibonacci(Int32, $num(Int32)) {
+	cmp $num, %1;																						// If num is 0 or 1, we don't need to do anything
+	brc e, gr;
+	return $num;
+e:	sub $num, $num, %1;																					// Else, we need to return Fibonacci(num - 1) + Fibonacci(num + 2)
+	call @Fibonacci, $num;
+	mov $0, $?;
+	sub $num, $num, %1;
+	call @Fibonacci, $num;
+	add $0, $0, $?;
+	return $0;
+}
+
+@Main() {
+	call @WriteString, #"Printing the first 10 terms of the Fibonacci sequence\r\n";
+	mov $0, %0;
+l:	cmp $0, %10;																						// End of the loop?
+	brc m, lo;
+	return;																								// Yes, return
+m:	call @Fibonacci, $0;																				// Call the Fibonacci method
+	call @IntToString, $?, %10;																			// Convert the result to a string
+	mov $1, $?;																							// Move it from the $? (last return value) to $1 (second local variable, as the first one is being used as a counter)
+	appendarr $1, #"\r\n";																				// Append a new line in the end
+	call @WriteString, $1;																				// And print it
+	add $0, $0, %1;
+	br l;
+}

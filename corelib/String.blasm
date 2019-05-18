@@ -1,0 +1,58 @@
+// File author is Ítalo Lima Marconato Matias
+//
+// Created on May 18 of 2019, at 14:04 BRT
+// Last edited on May 18 of 2019, at 15:15 BRT
+
+@IntToString(Array, $data(Int32), $base(Int8)) {
+	cmp $data, %0;																			// First, let's check if we got 0 as the first argument
+	brc c, neq;
+	newarr $0, %1;																			// Yes, then let's just create a string with one single character
+	writearr $0, %0, %'0';																	// This character will be a '0'
+	return $1;
+c:	cmpr $0, $data, $0, lo;																	// Alright, first, let's check if this is an negative number, and save the result of this cmp to the first local variable ($0)
+	cmp $0, %0;
+	br s;
+	mul $data, $data, %-1;																	// It is, then let's multiply it by -1 (to get an positive number)
+s:	newarr $1, %31;																			// After converting it to positive (or if it was already positive), let's create the output array
+	mov $2, %30;
+m:	cmp $data, %0;																			// Check if this is the end (or if we got to our limit, 30 character)
+	brc e, eq;
+	cmp $2, %0;
+	brc e, eq;
+	mod $3, $data, $base;																	// Alright, let's calculate the index to right character inside of our char table
+	readarr $3, #"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", $3;								// And get the character
+	writearr $1, $2, $3;																	// Now we can write it to the array
+	sub $2, $2, %1;																			// And go to the next one
+	div $data, $data, $base;
+	br m;
+e:	cmp $0, %1;																				// Let's check if we need to add the negative (-) sign
+	brc n, eq;
+	add $2, $2, %1;																			// No, we don't need, let's fix the start of the new array and go to the return label
+	br r;
+n:	writearr $1, $2, %'-';																	// Yes, we need, add it
+r:	arrsubst $1, $1, $2;																	// Create a new array (that will be returned) starting at the right position
+	return $1;
+}
+
+@UIntToString(Array, $data(UInt32), $base(Int8)) {
+	cmp $data, %0;																			// First, let's check if we got 0 as the first argument
+	brc s, neq;
+	newarr $0, %1;																			// Yes, then let's just create a string with one single character
+	writearr $0, %0, %'0';																	// This character will be a '0'
+	return $0;
+s:	newarr $1, %31;																			// After converting it to positive (or if it was already positive), let's create the output array
+	mov $2, %30;
+m:	cmp $data, %0;																			// Check if this is the end (or if we got to our limit, 30 character)
+	brc e, eq;
+	cmp $2, %0;
+	brc e, eq;
+	mod $3, $data, $base;																	// Alright, let's calculate the index to right character inside of our char table
+	readarr $3, #"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", $3;								// And get the character
+	writearr $1, $2, $3;																	// Now we can write it to the array
+	sub $2, $2, %1;																			// And go to the next one
+	div $data, $data, $base;
+	br m;
+e:	add $1, $1, %1;																			// Let's fix the start of the new array
+	arrsubst $0, $0, $1;																	// And create the new array (that will be returned) starting at the right position
+	return $0;
+}
