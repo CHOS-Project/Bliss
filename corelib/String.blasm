@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on May 18 of 2019, at 14:04 BRT
-// Last edited on May 18 of 2019, at 15:15 BRT
+// Last edited on May 18 of 2019, at 20:21 BRT
 
 @IntToString(Array, $data(Int32), $base(Int8)) {
 	cmp $data, %0;																			// First, let's check if we got 0 as the first argument
@@ -55,4 +55,24 @@ m:	cmp $data, %0;																			// Check if this is the end (or if we got to
 e:	add $1, $1, %1;																			// Let's fix the start of the new array
 	arrsubst $0, $0, $1;																	// And create the new array (that will be returned) starting at the right position
 	return $0;
+}
+
+@FloatToString(Array, $data(Float)) {
+	call @IntToString, $data^Int32;															// Convert the integer part to Int32 (the part before the floating point) so we can convert it to a string
+	mov $0, $?;																				// Save the returned string
+	mov $1, %1;																				// Now, for converting the decimal places to a single integer that we can print, we need to discover what multiplicand we need to use
+l:	mul $2, $data, $1;																		// So, let's try to multiply it by 1, by 10, by 100, and so on
+	round $2, $2;																			// Now round the result
+	div $2, $2, $1;																			// Divide again to try to get the number again
+	cmp $2, $data;
+	brc e, eq;
+	mul $1, %10;																			// We didn't got it, multiply our multiplicand by 10 and keep on trying
+	br l;
+e:	cmp $1, %1;																				// We found it! But we need to append the floating part?
+	brc r, eq;																				// No, so just return
+	mul $1, $data, $1;																		// We need to append it, so convert the floating part point into something that our IntToString can handle
+	call @IntToString, $1^Int32;															// And convert it to Int32 so we can convert it to a string
+	appendarr $0, #".";																		// Now, append the decimal separator
+	appendarr $0, $?;																		// And append the floating part
+r:	return $0;
 }
