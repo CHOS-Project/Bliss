@@ -1,24 +1,24 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on May 18 of 2019, at 14:04 BRT
-// Last edited on May 18 of 2019, at 20:21 BRT
+// Last edited on May 19 of 2019, at 13:13 BRT
 
 @IntToString(Array, $data(Int32), $base(Int8)) {
 	cmp $data, %0;																			// First, let's check if we got 0 as the first argument
-	brc c, neq;
+	brc c, ?neq;
 	newarr $0, %1;																			// Yes, then let's just create a string with one single character
 	writearr $0, %0, %'0';																	// This character will be a '0'
 	return $1;
-c:	cmpr $0, $data, $0, lo;																	// Alright, first, let's check if this is an negative number, and save the result of this cmp to the first local variable ($0)
+c:	cmpr $0, $data, $0, ?lo;																	// Alright, first, let's check if this is an negative number, and save the result of this cmp to the first local variable ($0)
 	cmp $0, %0;
 	br s;
 	mul $data, $data, %-1;																	// It is, then let's multiply it by -1 (to get an positive number)
 s:	newarr $1, %31;																			// After converting it to positive (or if it was already positive), let's create the output array
 	mov $2, %30;
 m:	cmp $data, %0;																			// Check if this is the end (or if we got to our limit, 30 character)
-	brc e, eq;
+	brc e, ?eq;
 	cmp $2, %0;
-	brc e, eq;
+	brc e, ?eq;
 	mod $3, $data, $base;																	// Alright, let's calculate the index to right character inside of our char table
 	readarr $3, #"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", $3;								// And get the character
 	writearr $1, $2, $3;																	// Now we can write it to the array
@@ -26,7 +26,7 @@ m:	cmp $data, %0;																			// Check if this is the end (or if we got to
 	div $data, $data, $base;
 	br m;
 e:	cmp $0, %1;																				// Let's check if we need to add the negative (-) sign
-	brc n, eq;
+	brc n, ?eq;
 	add $2, $2, %1;																			// No, we don't need, let's fix the start of the new array and go to the return label
 	br r;
 n:	writearr $1, $2, %'-';																	// Yes, we need, add it
@@ -36,16 +36,16 @@ r:	arrsubst $1, $1, $2;																	// Create a new array (that will be retu
 
 @UIntToString(Array, $data(UInt32), $base(Int8)) {
 	cmp $data, %0;																			// First, let's check if we got 0 as the first argument
-	brc s, neq;
+	brc s, ?neq;
 	newarr $0, %1;																			// Yes, then let's just create a string with one single character
 	writearr $0, %0, %'0';																	// This character will be a '0'
 	return $0;
 s:	newarr $1, %31;																			// After converting it to positive (or if it was already positive), let's create the output array
 	mov $2, %30;
 m:	cmp $data, %0;																			// Check if this is the end (or if we got to our limit, 30 character)
-	brc e, eq;
+	brc e, ?eq;
 	cmp $2, %0;
-	brc e, eq;
+	brc e, ?eq;
 	mod $3, $data, $base;																	// Alright, let's calculate the index to right character inside of our char table
 	readarr $3, #"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", $3;								// And get the character
 	writearr $1, $2, $3;																	// Now we can write it to the array
@@ -65,14 +65,14 @@ l:	mul $2, $data, $1;																		// So, let's try to multiply it by 1, by 
 	round $2, $2;																			// Now round the result
 	div $2, $2, $1;																			// Divide again to try to get the number again
 	cmp $2, $data;
-	brc e, eq;
+	brc e, ?eq;
 	mul $1, %10;																			// We didn't got it, multiply our multiplicand by 10 and keep on trying
 	br l;
 e:	cmp $1, %1;																				// We found it! But we need to append the floating part?
-	brc r, eq;																				// No, so just return
+	brc r, ?eq;																				// No, so just return
 	mul $1, $data, $1;																		// We need to append it, so convert the floating part point into something that our IntToString can handle
 	call @IntToString, $1^Int32;															// And convert it to Int32 so we can convert it to a string
-	appendarr $0, #".";																		// Now, append the decimal separator
+	appendarr $0, %'.';																		// Now, append the decimal separator
 	appendarr $0, $?;																		// And append the floating part
 r:	return $0;
 }

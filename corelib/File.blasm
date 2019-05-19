@@ -1,12 +1,12 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on May 18 of 2019, at 13:51 BRT
-// Last edited on May 18 of 2019, at 15:16 BRT
+// Last edited on May 19 of 2019, at 13:13 BRT
 
-@OpenFile(Native, 0, Int32, $path(Array));													// All those functions are native, that is, we don't need to implement them, as the virtual machine will
-@CreateFile(Native, 1, Int32, $path(Array));
-@CloseFile(Native, 2, $file(Int32));
-@ReadFile(Native, 3, Array, $file(Int32), $length(Int32));
-@WriteFile(Native, 4, $file(Int32), $data(Any));
-@GetFilePosition(Native, 5, Int32, $file(Int32));
-@SetFilePosition(Native, 6, $file(Int32), $off(Int32), $origin(Int32));
+@OpenFile(Native, %0, Int32, $path(Array));													// All those functions are native, that is, we don't need to implement them, as the virtual machine will
+@CreateFile(Native, %1, Int32, $path(Array));
+@CloseFile(Native, %2, $file(Int32));
+@ReadFile(Native, %3, Array, $file(Int32), $length(Int32));
+@WriteFile(Native, %4, $file(Int32), $data(Any));
+@GetFilePosition(Native, %5, Int32, $file(Int32));
+@SetFilePosition(Native, %6, $file(Int32), $off(Int32), $origin(Int32));
