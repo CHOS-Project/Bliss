@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on May 18 of 2019, at 14:04 BRT
-// Last edited on May 19 of 2019, at 13:31 BRT
+// Last edited on May 19 of 2019, at 15:40 BRT
 
 @IntToString(Array, $data(Int32), $base(Int8)) {
 	cmp $data, %0;																			// First, let's check if we got 0 as the first argument
@@ -66,7 +66,7 @@ l:	mul $2, $data, $1;																		// So, let's try to multiply it by 1, by 
 	div $2, $2, $1;																			// Divide again to try to get the number again
 	cmp $2, $data;
 	brc e, ?eq;
-	mul $1, %10;																			// We didn't got it, multiply our multiplicand by 10 and keep on trying
+	mul $1, $1, %10;																		// We didn't got it, multiply our multiplicand by 10 and keep on trying
 	br l;
 e:	cmp $1, %1;																				// We found it! But we need to append the floating part?
 	brc r, ?eq;																				// No, so just return
