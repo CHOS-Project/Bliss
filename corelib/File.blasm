@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on May 18 of 2019, at 13:51 BRT
-// Last edited on May 19 of 2019, at 16:18 BRT
+// Last edited on May 19 of 2019, at 18:23 BRT
 
 @OpenFile($path(Array)) {
 	ncall %0, $path;																		// All those functions are native, that is, we don't need to implement them, as the virtual machine will
@@ -24,7 +24,6 @@
 
 @WriteFile($file(Int32), $data(Any)) {
 	ncall %4, $file, $data;
-	return $?;
 }
 
 @GetFilePosition($file(Int32)) {

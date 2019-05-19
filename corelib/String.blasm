@@ -1,17 +1,17 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on May 18 of 2019, at 14:04 BRT
-// Last edited on May 19 of 2019, at 16:34 BRT
+// Last edited on May 19 of 2019, at 18:45 BRT
 
 @IntToString($data(Int32), $base(Int8)) {
 	cmp $data, %0;																			// First, let's check if we got 0 as the first argument
 	brc c, ?neq;
 	newarr $0, %1;																			// Yes, then let's just create a string with one single character
 	writearr $0, %0, %'0';																	// This character will be a '0'
-	return $1;
-c:	cmpr $0, $data, $0, ?lo;																// Alright, first, let's check if this is an negative number, and save the result of this cmp to the first local variable ($0)
+	return $0;
+c:	cmpr $0, $data, %0, ?lo;																// Alright, first, let's check if this is an negative number, and save the result of this cmp to the first local variable ($0)
 	cmp $0, %0;
-	br s;
+	brc s, ?eq;
 	mul $data, $data, %-1;																	// It is, then let's multiply it by -1 (to get an positive number)
 s:	newarr $1, %31;																			// After converting it to positive (or if it was already positive), let's create the output array
 	mov $2, %30;
