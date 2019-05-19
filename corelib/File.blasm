@@ -1,14 +1,14 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on May 18 of 2019, at 13:51 BRT
-// Last edited on May 19 of 2019, at 13:35 BRT
+// Last edited on May 19 of 2019, at 16:18 BRT
 
-@OpenFile(Int32, $path(Array)) {
+@OpenFile($path(Array)) {
 	ncall %0, $path;																		// All those functions are native, that is, we don't need to implement them, as the virtual machine will
 	return $?;
 }
 
-@CreateFile(Int32, $path(Array)) {
+@CreateFile($path(Array)) {
 	ncall %1, $path;
 	return $?;
 }
@@ -17,7 +17,7 @@
 	ncall %2, $file;
 }
 
-@ReadFile(Array, $file(Int32), $length(Int32)) {
+@ReadFile($file(Int32), $length(Int32)) {
 	ncall %3, $file, $length;
 	return $?;
 }
@@ -27,7 +27,7 @@
 	return $?;
 }
 
-@GetFilePosition(Int32, $file(Int32)) {
+@GetFilePosition($file(Int32)) {
 	ncall %5, $file;
 	return $?;
 }

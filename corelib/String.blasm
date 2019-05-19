@@ -1,9 +1,9 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on May 18 of 2019, at 14:04 BRT
-// Last edited on May 19 of 2019, at 15:40 BRT
+// Last edited on May 19 of 2019, at 16:18 BRT
 
-@IntToString(Array, $data(Int32), $base(Int8)) {
+@IntToString($data(Int32), $base(Int8)) {
 	cmp $data, %0;																			// First, let's check if we got 0 as the first argument
 	brc c, ?neq;
 	newarr $0, %1;																			// Yes, then let's just create a string with one single character
@@ -34,7 +34,7 @@ r:	arrsubst $1, $1, $2;																	// Create a new array (that will be retu
 	return $1;
 }
 
-@UIntToString(Array, $data(UInt32), $base(Int8)) {
+@UIntToString($data(UInt32), $base(Int8)) {
 	cmp $data, %0;																			// First, let's check if we got 0 as the first argument
 	brc s, ?neq;
 	newarr $0, %1;																			// Yes, then let's just create a string with one single character
@@ -57,7 +57,7 @@ e:	add $1, $1, %1;																			// Let's fix the start of the new array
 	return $0;
 }
 
-@FloatToString(Array, $data(Float)) {
+@FloatToString($data(Float)) {
 	call @IntToString, $data^Int32;															// Convert the integer part to Int32 (the part before the floating point) so we can convert it to a string
 	mov $0, $?;																				// Save the returned string
 	mov $1, %1;																				// Now, for converting the decimal places to a single integer that we can print, we need to discover what multiplicand we need to use
