@@ -1,12 +1,16 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on May 18 of 2019, at 13:57 BRT
-// Last edited on May 18 of 2019, at 15:16 BRT
+// Last edited on May 19 of 2019, at 13:39 BRT
 
-@WriteCharacter($data(Int16)) {
-	ncall @WriteFile, %0, $data;					// Redirect to the WriteFile native method, using 0 (stdout) as the first argument
+@WriteCharacter($data(Int32)) {
+	call @WriteFile, %1, $data;								// Redirect to WriteFile, using 1 (stdout) as the first argument
 }
 
 @WriteString($data(Array)) {
-	ncall @WriteFile, %0, $data;					// Redirect to the WriteFile native method, using 0 (stdout) as the first argument
+	call @WriteFile, %1, $data;								// Redirect to WriteFile, using 1 (stdout) as the first argument
+}
+
+@ReadLine {
+	call @ReadFile, %0, %0;									// Redirect to ReadFile, using 0 (stdin) as the first argument and 0 as the length (second argument), as the stdin ReadFile doesn't need any length
 }
