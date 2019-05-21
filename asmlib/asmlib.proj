@@ -1,0 +1,4 @@
+<bliss>
+	<corelib>true</corelib>
+	<files>File.blasm Console.blasm String.blasm</files>
+</bliss>

@@ -13,7 +13,7 @@ Bliss is an bytecode virtual machine for creating portable applications, it will
 
 The blasm folder contains the source code of the assembler.
 
-The corelib folder contains the source code of the core library for creating applications, some of the files contains native methods (that need to be invoked using ncall instead of call).
+The asmlib folder contains the source code of the core library for creating applications using the Bliss Assembler.
 
 The example folder contains some examples, like a Fibonacci sequence implementation, and how to access the arguments passed to Main.
 
