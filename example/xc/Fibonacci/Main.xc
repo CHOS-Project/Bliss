@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on June 28 of 2019, at 15:54 BRT
-// Last edited on June 28 of 2019, at 16:17 BRT
+// Last edited on June 28 of 2019, at 16:21 BRT
 
 method Fibonacci(num) : Int32 {
 	if (num <= 1) {																		// If num is 0 or 1, we don't need to do anything
