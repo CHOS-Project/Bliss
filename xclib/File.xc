@@ -1,12 +1,13 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 01 of 2019, at 12:34 BRT
-// Last edited on July 01 of 2019, at 16:00 BRT
+// Last edited on July 01 of 2019, at 18:12 BRT
 
 class File {
 	private var id, read, write, closed;								// Basic informations about the file
 	
-	private static native OpenFile(path : Int8*) : Int32 = 0; 			// Native functions that communicate with the Bliss VM
+	private static native OpenFile(path : String) : Int32 = 0; 			// Native functions that communicate with the Bliss VM
+	private static native CreateFile(path : String) : Int32 = 1;
 	private static native CloseFile(id) = 2;
 	private static native ReadFile(id, length) : Int8* = 3;	
 	private static native WriteFile(id, data : Int8*) = 4;
@@ -18,8 +19,18 @@ class File {
 		this.closed = closed;
 	}
 	
-	public static method Open(path : Int8*) : File {
+	public static method Open(path : String) : File {
 		var id = OpenFile(path);										// Try to open the file and get the id
+		
+		if (id == 0) {
+			return new File(0, 0, 0, 1);								// Failed, return an empty and closed file
+		}
+		
+		return new File(id, 1, 1, 0);									// Return the opened file!
+	}
+	
+	public static method Create(path : String) : File {
+		var id = CreateFile(path);										// Try to create the file, open it, and get the id
 		
 		if (id == 0) {
 			return new File(0, 0, 0, 1);								// Failed, return an empty and closed file
