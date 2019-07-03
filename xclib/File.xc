@@ -1,10 +1,10 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 01 of 2019, at 12:34 BRT
-// Last edited on July 02 of 2019, at 15:51 BRT
+// Last edited on July 03 of 2019, at 19:01 BRT
 
 class File {
-	private var id, read, write, getpos, setpos, closed;				// Basic informations about the file
+	private var id, read, write, getpos, setpos, closed = 0;			// Basic informations about the file
 	
 	private static native OpenFile(path : String) : Int32 = 0; 			// Native functions that communicate with the Bliss VM
 	private static native CreateFile(path : String) : Int32 = 1;
@@ -14,33 +14,32 @@ class File {
 	private static native GetFilePosition(id) : Int32 = 5;
 	private static native SetFilePosition(id, off, orig) = 6;
 	
-	method File(id, read, write, getpos, setpos, closed) {
+	method File(id, read, write, getpos, setpos) {
 		this.id = id;													// Init the basic informations about this file (the ID, and what operations we should allow)
 		this.read = read;
 		this.write = write;
 		this.getpos = getpos;
 		this.setpos = setpos;
-		this.closed = closed;
 	}
 	
 	public static method Open(path : String) : File {
 		var id = OpenFile(path);										// Try to open the file and get the id
 		
 		if (id == 0) {
-			return new File(0, 0, 0, 0, 0, 1);							// Failed, return an empty and closed file
+			return null;												// Failed :(
 		}
 		
-		return new File(id, 1, 1, 1, 1, 0);								// Return the opened file!
+		return new File(id, 1, 1, 1, 1);								// Return the file!
 	}
 	
 	public static method Create(path : String) : File {
 		var id = CreateFile(path);										// Try to create the file, open it, and get the id
 		
 		if (id == 0) {
-			return new File(0, 0, 0, 0, 0, 1);							// Failed, return an empty and closed file
+			return null;												// Failed :(
 		}
 		
-		return new File(id, 1, 1, 1, 1, 0);								// Return the opened file!
+		return new File(id, 1, 1, 1, 1);								// Return the file!
 	}
 	
 	public method Close {
@@ -87,6 +86,6 @@ class File {
 	}
 }
 
-var In : File = new File(0, 1, 0, 0, 0, 0);								// Create the Input, Output, and Error files
-var Out : File = new File(1, 0, 1, 0, 0, 0);
-var Error : File = new File(2, 0, 1, 0, 0, 0);
+var In : File = new File(0, 1, 0, 0, 0);								// Create the Input, Output, and Error files
+var Out : File = new File(1, 0, 1, 0, 0);
+var Error : File = new File(2, 0, 1, 0, 0);
