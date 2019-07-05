@@ -1,5 +1,5 @@
 <bliss>
 	<type>xc</type>
 	<corelib>true</corelib>
-	<files>File.xc Math.xc</files>
+	<files>File.xc List.xc Math.xc</files>
 </bliss>
