@@ -1,4 +1,4 @@
 <bliss>
 	<type>xc</type>
-	<files>Main.xc</files>
+	<files>Lexer.xc Main.xc</files>
 </bliss>

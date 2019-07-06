@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 06 of 2019, at 13:58 BRT
-// Last edited on July 06 of 2019, at 15:04 BRT
+// Last edited on July 06 of 2019, at 17:44 BRT
 
 method Main(args : String*) : Int32 {
 	if (args.Length == 0) {																							// This application needs at least one argument, do we have it?
