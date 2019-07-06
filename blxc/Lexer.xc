@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 06 of 2019, at 15:33 BRT
-// Last edited on July 06 of 2019, at 17:48 BRT
+// Last edited on July 06 of 2019, at 18:22 BRT
 
 enum TokenType {
 	Identifier,
@@ -265,6 +265,17 @@ class Lexer {
 				
 				lexer.ReadChar(1);																			// Read the close tag
 				ret.Add(new Token(TokenType.String, value, filename, line, column));						// Finally, create and add the token
+			} else if (StringUtils.Contains("+-*/=<>!&^|%~", lexer.PeekChar(0))) {							// Operator?
+				var op : String = lexer.ReadChar(1), op2 : String = op + lexer.PeekChar(0);					// Yes, let's save it
+				
+				if (op2 == ">>" || op2 == "<<" || op2 == "&&" || op2 == "||" || op2 == "==" ||
+					op2 == "!=" || op2 == "<=" || op2 == ">=" || op2 == "+=" || op2 == "-=" ||
+					op2 == "*=" || op2 == "/=" || op2 == "%=" || op2 == "++" || op2 == "--") {				// This operator have two characters?
+					lexer.ReadChar(1);																		// Yes
+					ret.Add(new Token(TokenType.Operator, op2, filename, line, column));
+				} else {
+					ret.Add(new Token(TokenType.Operator, op, filename, line, column));						// Nope
+				}
 			} else if (lexer.PeekChar(0) == "(") {															// Now, we have lots of single character tokens :)
 				ret.Add(new Token(TokenType.OpenParen, lexer.ReadChar(1), filename, line, column));
 			} else if (lexer.PeekChar(0) == ")") {

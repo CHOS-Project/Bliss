@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 06 of 2019, at 13:58 BRT
-// Last edited on July 06 of 2019, at 17:44 BRT
+// Last edited on July 06 of 2019, at 18:23 BRT
 
 method Main(args : String*) : Int32 {
 	if (args.Length == 0) {																							// This application needs at least one argument, do we have it?
@@ -25,6 +25,9 @@ method Main(args : String*) : Int32 {
 			} else {
 				output = args[++i];																					// Yes, let's save it!
 			}
+		} else if (args[i][0] == '-') {																				// Unknown option?
+			Out.Write("\e[31mblxc: error:\e[0m unknown option '" + args[i] + "'\r\n");								// Yeah, error out and return
+			return 1;
 		} else if (inputs.Contains(args[i])) {																		// Is this file already in the input file list?
 			Out.Write("\e[31mblxc: error:\e[0m duplicated input file '" + args[i] + "'\r\n");						// Yes, error out and return
 			return 1;
