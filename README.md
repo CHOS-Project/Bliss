@@ -28,4 +28,4 @@ The vm folder contains the virtual machine.
 
 For now, they are closed source and made in C# (they are completely uncommented and unoptimized).
 
-I will port the virtual machine to C and implement a JIT compiler for it, also, I will port the toolchain to ExtendedC (a C-like language that I'm still developing).
+I will port the virtual machine to C and implement a JIT compiler for it, also, I'm currently porting the toolchain to ExtendedC.

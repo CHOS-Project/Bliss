@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 01 of 2019, at 12:34 BRT
-// Last edited on July 03 of 2019, at 19:01 BRT
+// Last edited on July 06 of 2019, at 14:40 BRT
 
 class File {
 	private var id, read, write, getpos, setpos, closed = 0;			// Basic informations about the file
@@ -40,6 +40,17 @@ class File {
 		}
 		
 		return new File(id, 1, 1, 1, 1);								// Return the file!
+	}
+	
+	public static method Exists(path : String) : Int8 {
+		var id = OpenFile(path);										// Try to open the file
+		
+		if (id != 0) {
+			CloseFile(id);												// This file exists, close it and return 1 (true)
+			return 1;
+		}
+		
+		return 0;														// This file doesn't exists, return 0 (false)
 	}
 	
 	public method Close {

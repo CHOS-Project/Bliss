@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 05 of 2019, at 15:41 BRT
-// Last edited on July 05 of 2019, at 16:37 BRT
+// Last edited on July 06 of 2019, at 14:58 BRT
 
 class ListItem {
 	public var Data : Any, Next : ListItem, Prev : ListItem;						// This is a linked list, so we need pointers to the next item and to the previous one
@@ -14,7 +14,7 @@ class ListItem {
 }
 
 class List {
-	private var head : ListItem;
+	private var head : ListItem = null, length = 0;									// The initial length is 0
 	
 	public method Add(data : Any) {
 		AddToEnd(data);																// The default Add function redirects to AddToEnd (it will add the item to the end of the list)
@@ -22,11 +22,13 @@ class List {
 	
 	public method AddToStart(data : Any) {
 		head = new ListItem(data, head, null);										// Just create a new head with the field 'Next' pointing to the old head
+		length++;																	// And increase the length
 	}
 	
 	public method AddToEnd(data : Any) {
 		if (head == null) {															// First item?
 			head = new ListItem(data, null, null);									// Yes, create the head and return
+			length++;																// And increase the length
 			return;
 		}
 		
@@ -35,6 +37,7 @@ class List {
 		for (; cur.Next != null; cur = cur.Next) ;
 		
 		cur.Next = new ListItem(data, null, cur);									// Create the new item
+		length++;																	// And increase the length
 	}
 	
 	public method AddAt(idx, data : Any) : Int8 {
@@ -50,6 +53,7 @@ class List {
 		}
 		
 		cur.Prev = new ListItem(data, cur, cur.Prev);								// Create the new item
+		length++;																	// And increase the length
 		
 		return 1;
 	}
@@ -63,6 +67,7 @@ class List {
 		}
 		
 		cur.Next = new ListItem(data, cur.Next, cur);								// Create the new item
+		length++;																	// And increase the length
 	}
 	
 	public method AddBefore(value : Any, data : Any) {
@@ -74,6 +79,7 @@ class List {
 		}
 		
 		cur.Prev = new ListItem(data, cur, cur.Prev);								// Create the new item
+		length++;																	// And increase the length
 	}
 	
 	public method Remove(data : Any) {
@@ -89,6 +95,8 @@ class List {
 			if (cur.Next != null) {													// Does it have the 'Next' field?
 				cur.Next.Prev = cur.Prev;											// Yes :)
 			}
+			
+			length--;																// And decrease the length
 		}
 	}
 	
@@ -106,13 +114,19 @@ class List {
 				cur.Next.Prev = cur.Prev;											// Yes :)
 			}
 			
-			return cur.Data;														// Return the item's data
+			length--;																// Decrease the length
+			
+			return cur.Data;														// And return the item's data
 		}
 		
 		return null;																// Not found, so let's return null :(
 	}
 	
-	public method GetItem(idx) : Any {
+	public method Contains(value : Any) : Int8 {
+		return GoToItem(value) != null;												// Return if we can find this file
+	}
+	
+	public method Get(idx) : Any {
 		var item : ListItem = GoToIndex(idx);										// Try to get whatever item is in the 'idx' position
 		
 		if (item == null) {
@@ -123,16 +137,14 @@ class List {
 	}
 	
 	public method GetLength : Int32 {
-		var ret = 0;																// Follow the 'Next' field links to get the length
-		
-		for (var cur : ListItem = head; cur != null; cur = cur.Next) {
-			ret++;
-		}
-		
-		return ret;
+		return length;																// Return our internal length variable
 	}
 	
 	private method GoToIndex(idx) : ListItem {
+		if (idx >= length) {														// Valid index?
+			return null;															// Nope :(
+		}
+		
 		for (var cur : ListItem = head, i = 0; cur != null; cur = cur.Next) {		// Follow the 'Next' field links
 			if (i++ == idx) {														// Right idx?
 				return cur;															// Yes, return the list item :)
