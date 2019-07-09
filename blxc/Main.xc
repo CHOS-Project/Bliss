@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 06 of 2019, at 13:58 BRT
-// Last edited on July 06 of 2019, at 18:23 BRT
+// Last edited on July 08 of 2019, at 17:42 BRT
 
 method Main(args : String*) : Int32 {
 	if (args.Length == 0) {																							// This application needs at least one argument, do we have it?
@@ -39,11 +39,19 @@ method Main(args : String*) : Int32 {
 		}
 	}
 	
-	Out.Write("Output: " + output + "\r\n");																		// Print the output filename
-	Out.Write("Inputs:\r\n");																						// And the input file(s)
-	
-	for (var i = 0; i < inputs.GetLength(); i++) {
-		Out.Write("    " + inputs.Get(i) + "\r\n");
+	for (var i = 0; i < inputs.GetLength(); i++) {																	// Time to compile everything
+		var file : String = inputs.Get(i);																			// Get the filename
+		var tokens : List = Lexer.Lex(file, File.ReadAll(file));													// Lex it!
+		
+		if (tokens == null) {
+			return 1;																								// Failed :(
+		}
+		
+		var ast : Node = Parser.Parse(tokens);																		// Parse it!
+		
+		if (ast == null) {
+			return 1;																								// Failed :(
+		}
 	}
 	
 	return 0;

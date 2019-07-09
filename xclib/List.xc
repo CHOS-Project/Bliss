@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 05 of 2019, at 15:41 BRT
-// Last edited on July 06 of 2019, at 14:58 BRT
+// Last edited on July 08 of 2019, at 13:26 BRT
 
 class ListItem {
 	public var Data : Any, Next : ListItem, Prev : ListItem;						// This is a linked list, so we need pointers to the next item and to the previous one
@@ -18,6 +18,14 @@ class List {
 	
 	public method Add(data : Any) {
 		AddToEnd(data);																// The default Add function redirects to AddToEnd (it will add the item to the end of the list)
+	}
+	
+	public method AddList(list : List) {
+		if (list != null) {															// Null pointer check
+			for (var i = 0; i < list.GetLength(); i++) {							// Let's add everything from this list
+				Add(list.Get(i));
+			}
+		}
 	}
 	
 	public method AddToStart(data : Any) {

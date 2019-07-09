@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 01 of 2019, at 12:34 BRT
-// Last edited on July 06 of 2019, at 14:40 BRT
+// Last edited on July 06 of 2019, at 19:15 BRT
 
 class File {
 	private var id, read, write, getpos, setpos, closed = 0;			// Basic informations about the file
@@ -51,6 +51,35 @@ class File {
 		}
 		
 		return 0;														// This file doesn't exists, return 0 (false)
+	}
+	
+	public static method ReadAll(path : String) : Int8* {
+		var file : File = Open(path);									// Try to open the file
+		
+		if (file == null) {
+			return null;												// Failed
+		}
+		
+		var data : Int8* = file.Read(file.GetLength());					// Read the file contents
+		
+		file.Close();													// Close the file
+		
+		return data;													// Return the read data
+	}
+	
+	public static method WriteAll(path : String, data : Int8*) {
+		var file : File = Open(path);									// Try to open the file
+		
+		if (file == null) {
+			file = Create(path);										// Failed, try to create it
+			
+			if (file == null) {
+				return;													// Failed :(
+			}
+		}
+		
+		file.Write(data);												// Write the data
+		file.Close();													// Close the file
 	}
 	
 	public method Close {
