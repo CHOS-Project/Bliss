@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 06 of 2019, at 15:33 BRT
-// Last edited on July 08 of 2019, at 22:24 BRT
+// Last edited on July 09 of 2019, at 16:16 BRT
 
 enum TokenType {
 	Identifier,
@@ -80,7 +80,7 @@ class Token {
 	public method GetValue : String { return value; }
 	public method GetFilename : String { return filename; }
 	public method GetLine : Int32 { return line; }
-	public method GetColumn : Int32 { return line; }
+	public method GetColumn : Int32 { return column; }
 }
 
 class Lexer {
@@ -387,7 +387,7 @@ class Lexer {
 			line++;																							// Yes, also set the column to 1
 			column = 1;
 		} else if (cur == "\t") {																			// Tab?
-			column = (column + 4) & ~3;																		// Yes, go to the next tab-aligned position
+			column = (column + 3) & ~4;																		// Yes, go to the next tab-aligned position
 		} else {
 			column++;																						// Just increase the column
 		}

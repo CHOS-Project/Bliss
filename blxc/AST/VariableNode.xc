@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 18:17 BRT
-// Last edited on July 08 of 2019, at 22:32 BRT
+// Last edited on July 09 of 2019, at 16:05 BRT
 
 class VariableNode : Node {
 	private var pub, name : String, type : String;
@@ -66,12 +66,6 @@ class VariableNode : Node {
 			
 			vars.Add(new VariableNode(pub, name.GetValue(), type, value,
 									  start.GetFilename(), start.GetLine(), start.GetColumn()));					// Create and add the var node
-		}
-		
-		if (!arg && parser.Accept(TokenType.Semicolon) == null) {													// Expect the semicolon (in non-arg cases)
-			Parser.PrintError(parser.GetLast(start),
-							  "expected a semicolon or comma after the variable definition");
-				return null;
 		}
 		
 		if (vars.GetLength() > 1) {																					// Variable group?

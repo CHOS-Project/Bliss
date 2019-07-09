@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 12:46 BRT
-// Last edited on July 08 of 2019, at 22:35 BRT
+// Last edited on July 09 of 2019, at 16:17 BRT
 
 class ForNode : Node {
 	method ForNode(init : Node, cond : Node, after : Node, body : Node, filename : String, line, column) {
@@ -25,7 +25,7 @@ class ForNode : Node {
 			var tok : Token = parser.Peek(0);																		// Yes, let's see what it is
 			
 			if (tok != null && tok.GetType() == TokenType.Keyword && tok.GetValue() == "var") {						// Variable definition?
-				init = VariableNode.Parse(parser, tok, 1, 0);														// Yes, redirect to VariableNode.Parse!	
+				init = VariableNode.Parse(parser, parser.Read(1), 1, 0);											// Yes, redirect to VariableNode.Parse!	
 				
 				if (init == null) {
 					return null;																					// And we failed :(
