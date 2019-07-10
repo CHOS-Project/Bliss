@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 18:05 BRT
-// Last edited on July 08 of 2019, at 18:07 BRT
+// Last edited on July 10 of 2019, at 17:26 BRT
 
 class SuperNode : Node {
 	method SuperNode(args : List, filename : String, line, column) {

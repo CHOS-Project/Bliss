@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 09 of 2019, at 16:24 BRT
-// Last edited on July 10 of 2019, at 12:08 BRT
+// Last edited on July 10 of 2019, at 17:29 BRT
 
 class ASTPrinter {
 	public static method Print(ast : Node) {
@@ -204,7 +204,7 @@ class ASTPrinter {
 		} else if (node is ReturnNode) {																// Return
 			Out.Write(GetTabs(tabs) + "Return\r\n");
 			
-			if (node.Children.GetLength() > 1) {														// We have a value?
+			if (node.Children.GetLength() != 0) {														// We have a value?
 				PrintNode(node.Children.Get(0), tabs + 1);												// Yes, print it!
 			}
 		} else if (node is StringNode) {																// String

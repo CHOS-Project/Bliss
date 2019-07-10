@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 07 of 2019, at 20:08 BRT
-// Last edited on July 10 of 2019, at 11:58 BRT
+// Last edited on July 10 of 2019, at 17:32 BRT
 
 class CodeNode : Node {
 	method CodeNode(filename : String, line, column) {
@@ -29,6 +29,10 @@ class CodeNode : Node {
 				pub = 0;																							// Yes
 			} else {
 				parser.AcceptVal(TokenType.Keyword, "public");														// Public
+			}
+			
+			if (!stat && parser.AcceptVal(TokenType.Keyword, "static") != null) {									// Static?
+				stat = 1;																							// Yes
 			}
 			
 			tok = parser.Read(1);																					// Get the next token
@@ -119,7 +123,7 @@ class CodeNode : Node {
 			} else {																								// Expression
 				ret = Expression.Parse(parser);
 				
-				if (ret != null && !(parser.Accept(TokenType.Semicolon) == null)) {									// Semicolon in the end?
+				if (ret != null && parser.Accept(TokenType.Semicolon) == null) {									// Semicolon in the end?
 					Parser.PrintError(tok, "expected a semicolon after the expression");							// No...
 					ret = null;
 				}
@@ -134,7 +138,7 @@ class CodeNode : Node {
 			}
 		} else if (parser.Accept(TokenType.Semicolon) == null) {													// Expression
 			ret = Expression.Parse(parser);
-				
+			
 			if (ret != null && parser.Accept(TokenType.Semicolon) == null) {										// Semicolon in the end?
 				Parser.PrintError(parser.GetLast(tok), "expected a semicolon after the expression");				// No...
 				ret = null;

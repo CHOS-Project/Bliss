@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 06 of 2019, at 15:33 BRT
-// Last edited on July 09 of 2019, at 16:16 BRT
+// Last edited on July 10 of 2019, at 17:24 BRT
 
 enum TokenType {
 	Identifier,
@@ -387,7 +387,7 @@ class Lexer {
 			line++;																							// Yes, also set the column to 1
 			column = 1;
 		} else if (cur == "\t") {																			// Tab?
-			column = (column + 3) & ~4;																		// Yes, go to the next tab-aligned position
+			column += 4;																					// Yes
 		} else {
 			column++;																						// Just increase the column
 		}

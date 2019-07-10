@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 20:51 BRT
-// Last edited on July 10 of 2019, at 16:04 BRT
+// Last edited on July 10 of 2019, at 17:33 BRT
 
 class Expression {
 	public static method Parse(parser : Parser) : Node {
@@ -617,7 +617,7 @@ class Expression {
 				return null;
 			}
 			
-			return ParseMethodCall(parser, new MethodCallNode(left, args, left.GetFilename(), left.GetLine(), left.GetColumn()));	// Create the method call node and recursevly call ourselves
+			return ParseMethodCall(parser, new MethodCallNode(left, args, left.GetFilename(), left.GetLine(), left.GetColumn()));	// Create the method call node and recursively call ourselves
 		} else if ((token = parser.Accept(TokenType.OpenBracket)) != null) {														// Trying to access an array?
 			var idx : Node = Parse(parser);																							// Yes, parse the index
 			
@@ -628,7 +628,7 @@ class Expression {
 				return null;
 			}
 			
-			return ParseMethodCall(parser, new IndexerNode(left, idx, left.GetFilename(), left.GetLine(), left.GetColumn()));		// Create the indexer node and recursevly call ourselves
+			return ParseMethodCall(parser, new IndexerNode(left, idx, left.GetFilename(), left.GetLine(), left.GetColumn()));		// Create the indexer node and recursively call ourselves
 		} else if ((token = parser.Accept(TokenType.Dot)) != null) {																// Trying to access a member of something?
 			var tok : Token = parser.Accept(TokenType.Identifier);																	// Yes, get the member name
 			
@@ -651,7 +651,7 @@ class Expression {
 				
 				return ParseMethodCall(parser, new MemberAccessNode(left, new MethodCallNode(name, args,
 																    left.GetFilename(), left.GetLine(), left.GetColumn()),
-																	left.GetFilename(), left.GetLine(), left.GetColumn()));			// Create the method call node, the member access node and finally recursevly call ourselves with it
+																	left.GetFilename(), left.GetLine(), left.GetColumn()));			// Create the method call node, the member access node and finally recursively call ourselves with it
 			} else {
 				return ParseMethodCall(parser, new MemberAccessNode(left, name,
 																	left.GetFilename(), left.GetLine(), left.GetColumn()));			// Nope
@@ -663,7 +663,7 @@ class Expression {
 				return null;
 			}
 			
-			return ParseMethodCall(parser, new ConvertNode(left, type, left.GetFilename(), left.GetLine(), left.GetColumn()));		// Create the convert node and recursevly call ourselves with it
+			return ParseMethodCall(parser, new ConvertNode(left, type, left.GetFilename(), left.GetLine(), left.GetColumn()));		// Create the convert node and recursively call ourselves with it
 		} else if ((token = parser.AcceptVal(TokenType.Keyword, "is")) != null) {													// Is statement/operation?
 			var tok : Token = parser.Accept(TokenType.Identifier);																	// Yes, parse the type name
 			

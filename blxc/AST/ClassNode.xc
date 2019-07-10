@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 07 of 2019, at 16:55 BRT
-// Last edited on July 08 of 2019, at 18:20 BRT
+// Last edited on July 10 of 2019, at 17:21 BRT
 
 class ClassNode : Node {
 	private var name : String, inherits : String;
@@ -44,7 +44,9 @@ class ClassNode : Node {
 		var clas : ClassNode = new ClassNode(name, inherits, start.GetFilename(), start.GetLine(), start.GetColumn());			// Create our class node
 		var code : Node = CodeNode.ParseNoScope(parser, 1);																		// And parse the class code!
 		
-		if (parser.Accept(TokenType.CloseBrace) == null) {																		// Expect the closing brace
+		if (code == null) {
+			return null;
+		} else if (parser.Accept(TokenType.CloseBrace) == null) {																// Expect the closing brace
 			Parser.PrintError(parser.GetLast(start), "expected the closing brace after the class body");						// ...
 			return null;
 		}

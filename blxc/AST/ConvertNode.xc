@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 07 of 2019, at 22:09 BRT
-// Last edited on July 07 of 2019, at 22:12 BRT
+// Last edited on July 10 of 2019, at 17:34 BRT
 
 class ConvertNode : Node {
 	private var type : String;
@@ -15,7 +15,7 @@ class ConvertNode : Node {
 	public static method ParseType(parser : Parser, start : Token) : String {
 		var type : Any = parser.Accept(TokenType.Identifier);													// Let's try to get the name
 		
-		if (parser.Accept(TokenType.Semicolon) == null) {
+		if (type == null) {
 			Parser.PrintError(parser.GetLast(start), "expected the destination type of the conversion");		// :/
 			return null;
 		}
