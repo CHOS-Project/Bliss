@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 07 of 2019, at 22:13 BRT
-// Last edited on July 09 of 2019, at 16:13 BRT
+// Last edited on July 10 of 2019, at 12:167BRT
 
 class DoNode : Node {
 	method DoNode(cond : Node, body : Node, filename : String, line, column) {
@@ -17,7 +17,8 @@ class DoNode : Node {
 			body = new CodeNode(bstart.GetFilename(), bstart.GetLine(), bstart.GetColumn());						// Full scope!
 			ok = CodeNode.ParseScope(parser, start, body.Children, "do-while");										// Parse it!
 		} else {
-			ok = (body = CodeNode.ParseSingle(parser, parser.Peek(0))) == null;										// Single instruction, parse it!
+			ok = (parser.Accept(TokenType.Semicolon) != null) ||
+				 ((body = CodeNode.ParseSingle(parser, parser.Peek(0))) != null);									// Single instruction, parse it!
 		}
 		
 		if (!ok) {																									// Failed?

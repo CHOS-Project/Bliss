@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 20:49 BRT
-// Last edited on July 08 of 2019, at 22:19 BRT
+// Last edited on July 10 of 2019, at 12:17 BRT
 
 class WhileNode : Node {
 	method WhileNode(cond : Node, body : Node, filename : String, line, column) {
@@ -33,7 +33,8 @@ class WhileNode : Node {
 			body = new CodeNode(bstart.GetFilename(), bstart.GetLine(), bstart.GetColumn());						// Full scope!
 			ok = CodeNode.ParseScope(parser, start, body.Children, "while");										// Parse it!
 		} else {
-			ok = (body = CodeNode.ParseSingle(parser, parser.Peek(0))) == null;										// Single instruction, parse it!
+			ok = (parser.Accept(TokenType.Semicolon) != null) ||
+				 ((body = CodeNode.ParseSingle(parser, parser.Peek(0))) != null);									// Single instruction, parse it!
 		}
 		
 		if (!ok) {																									// Failed?

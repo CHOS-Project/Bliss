@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 06 of 2019, at 18:00 BRT
-// Last edited on July 08 of 2019, at 17:47 BRT
+// Last edited on July 10 of 2019, at 16:09 BRT
 
 class StringUtils {
 	public static method Contains(str : String, value : String) : Int8 {
@@ -150,7 +150,7 @@ class StringUtils {
 			res *= -1;																				// Yes
 		}
 		
-		if (out != null && out.Length > 1) {														// Return 1 or the result?
+		if (out != null && out.Length != 0) {														// Return 1 or the result?
 			out[0] = res;																			// Return 1
 			return 1;
 		}
@@ -198,7 +198,7 @@ class StringUtils {
 			res *= -1;																				// Yes
 		}
 		
-		if (out != null && out.Length > 1) {														// Return 1 or the result?
+		if (out != null && out.Length != 0) {														// Return 1 or the result?
 			out[0] = res;																			// Return 1
 			return 1;
 		}

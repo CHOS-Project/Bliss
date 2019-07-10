@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 07 of 2019, at 20:08 BRT
-// Last edited on July 09 of 2019, at 16:14 BRT
+// Last edited on July 10 of 2019, at 11:58 BRT
 
 class CodeNode : Node {
 	method CodeNode(filename : String, line, column) {
@@ -113,7 +113,7 @@ class CodeNode : Node {
 			} else if (val == "return") {																			// Return statement
 				ret = ReturnNode.Parse(parser, parser.Read(1));
 			} else if (val == "var") {																				// Variable definition
-				ret = VariableNode.Parse(parser, parser.Read(1), 0, 0);
+				ret = VariableNode.Parse(parser, parser.Read(1), 1, 0);
 			} else if (val == "while") {																			// While statement
 				ret = WhileNode.Parse(parser, parser.Read(1));
 			} else {																								// Expression

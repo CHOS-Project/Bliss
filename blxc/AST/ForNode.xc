@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 12:46 BRT
-// Last edited on July 09 of 2019, at 21:12 BRT
+// Last edited on July 10 of 2019, at 12:17 BRT
 
 class ForNode : Node {
 	method ForNode(init : Node, cond : Node, after : Node, body : Node, filename : String, line, column) {
@@ -60,9 +60,9 @@ class ForNode : Node {
 		var after : Node = null;																					// Finally, let's parse the after expression
 		
 		if (parser.Accept(TokenType.CloseParen) == null) {															// Do we have any?
-			cond = Expression.Parse(parser);																		// Yes! Let's parse it
+			after = Expression.Parse(parser);																		// Yes! Let's parse it
 			
-			if (cond == null) {
+			if (after == null) {
 				return null;																						// Failed :(
 			} else if (parser.Accept(TokenType.CloseParen) == null) {												// Expect the closing parentheses
 				Parser.PrintError(parser.GetLast(start),
@@ -77,7 +77,8 @@ class ForNode : Node {
 			body = new CodeNode(bstart.GetFilename(), bstart.GetLine(), bstart.GetColumn());						// Full scope!
 			ok = CodeNode.ParseScope(parser, start, body.Children, "for");											// Parse it!
 		} else {
-			ok = (body = CodeNode.ParseSingle(parser, parser.Peek(0))) == null;										// Single instruction, parse it!
+			ok = (parser.Accept(TokenType.Semicolon) != null) ||
+				 ((body = CodeNode.ParseSingle(parser, parser.Peek(0))) != null);									// Single instruction, parse it!
 		}
 		
 		if (!ok) {																									// Failed?

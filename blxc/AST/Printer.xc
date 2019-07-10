@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 09 of 2019, at 16:24 BRT
-// Last edited on July 09 of 2019, at 21:15 BRT
+// Last edited on July 10 of 2019, at 12:08 BRT
 
 class ASTPrinter {
 	public static method Print(ast : Node) {
@@ -22,7 +22,7 @@ class ASTPrinter {
 			
 			if (node.Children.GetLength() > 1) {														// We have a right value?
 				Out.Write(GetTabs(tabs + 1) + "Right:\r\n");											// Yes, print it
-				PrintNode(node.Children.Get(0), tabs + 2);
+				PrintNode(node.Children.Get(1), tabs + 2);
 			}
 		} else if (node is BreakNode) {																	// Break
 			Out.Write(GetTabs(tabs) + "Break\r\n");
@@ -50,7 +50,7 @@ class ASTPrinter {
 					PrintNode(clas.Methods.Get(i), tabs + 2);
 				}
 			}
-		} else if (node is CodeNode) {																	// Scope
+		} else if (node is CodeNode || node is VariableGroupNode) {										// Scope and Variable Groups
 			PrintChildren(node, tabs);
 		} else if (node is ContinueNode) {																// Continue
 			Out.Write(GetTabs(tabs) + "Continue\r\n");
@@ -225,14 +225,14 @@ class ASTPrinter {
 			var varn : VariableNode = node : VariableNode;												// Get our VariableNode
 			
 			if (varn.IsPublic()) {																		// Public
-				Out.Write(GetTabs(tabs + 1));															// Yes :)
+				Out.Write(GetTabs(tabs));																// Yes :)
 			} else {
-				Out.Write(GetTabs(tabs + 1) + "Private ");												// Nope
+				Out.Write(GetTabs(tabs) + "Private ");													// Nope
 			}
 			
 			Out.Write("Variable '" + varn.GetName() + "' with type '" + varn.GetType() + "'\r\n");
 			
-			if (node.Children.GetLength() > 1) {														// We have a value?
+			if (node.Children.GetLength() != 0) {														// We have a value?
 				PrintNode(node.Children.Get(0), tabs + 1);												// Yes, print it!
 			}
 		} else if (node is WhileNode) {																	// While Statement

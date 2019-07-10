@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 17:47 BRT
-// Last edited on July 08 of 2019, at 18:04 BRT
+// Last edited on July 10 of 2019, at 16:09 BRT
 
 class NumberNode : Node {
 	private var sval, uval : UInt32, signed;

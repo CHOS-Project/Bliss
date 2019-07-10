@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 20:51 BRT
-// Last edited on July 09 of 2019, at 20:19 BRT
+// Last edited on July 10 of 2019, at 16:04 BRT
 
 class Expression {
 	public static method Parse(parser : Parser) : Node {
@@ -165,6 +165,8 @@ class Expression {
 			if (!parser.EOF(0) && parser.Peek(0).GetType() == TokenType.Operator && parser.Peek(0).GetValue() == "||") {			// Should we call ourselves again?
 				return ParseBooleanOr(parser, ret);																					// Yes :)
 			}
+			
+			return ret;
 		}
 		
 		return left;																												// Nothing to do here, just return the l-val
@@ -196,6 +198,8 @@ class Expression {
 			if (!parser.EOF(0) && parser.Peek(0).GetType() == TokenType.Operator && parser.Peek(0).GetValue() == "&&") {			// Should we call ourselves again?
 				return ParseBooleanAnd(parser, ret);																				// Yes :)
 			}
+			
+			return ret;
 		}
 		
 		return left;																												// Nothing to do here, just return the l-val
@@ -227,6 +231,8 @@ class Expression {
 			if (!parser.EOF(0) && parser.Peek(0).GetType() == TokenType.Operator && parser.Peek(0).GetValue() == "|") {				// Should we call ourselves again?
 				return ParseOr(parser, ret);																						// Yes :)
 			}
+			
+			return ret;
 		}
 		
 		return left;																												// Nothing to do here, just return the l-val
@@ -255,9 +261,11 @@ class Expression {
 			var ret : Node = new BinaryOperationNode(BinaryOperation.BinaryXor, left, right,
 													 left.GetFilename(), left.GetLine(), left.GetColumn());							// Create our node
 			
-			if (!parser.EOF(0) && parser.Peek(0).GetType() == TokenType.Operator && parser.Peek(0).GetValue() == "|") {				// Should we call ourselves again?
+			if (!parser.EOF(0) && parser.Peek(0).GetType() == TokenType.Operator && parser.Peek(0).GetValue() == "^") {				// Should we call ourselves again?
 				return ParseXor(parser, ret);																						// Yes :)
 			}
+			
+			return ret;
 		}
 		
 		return left;																												// Nothing to do here, just return the l-val
@@ -289,6 +297,8 @@ class Expression {
 			if (!parser.EOF(0) && parser.Peek(0).GetType() == TokenType.Operator && parser.Peek(0).GetValue() == "&") {				// Should we call ourselves again?
 				return ParseAnd(parser, ret);																						// Yes :)
 			}
+			
+			return ret;
 		}
 		
 		return left;																												// Nothing to do here, just return the l-val
@@ -329,6 +339,8 @@ class Expression {
 				(parser.Peek(0).GetValue() == "==" || parser.Peek(0).GetValue() == "!=")) {											// Should we call ourselves again?
 				return ParseEquals(parser, ret);																					// Yes :)
 			}
+			
+			return ret;
 		}
 		
 		return left;																												// Nothing to do here, just return the l-val
@@ -382,6 +394,8 @@ class Expression {
 				 parser.Peek(0).GetValue() == "<=" || parser.Peek(0).GetValue() == ">=")) {											// Should we call ourselves again?
 				return ParseLoGr(parser, ret);																						// Yes :)
 			}
+			
+			return ret;
 		}
 		
 		return left;																												// Nothing to do here, just return the l-val
@@ -422,6 +436,8 @@ class Expression {
 				(parser.Peek(0).GetValue() == "<<" || parser.Peek(0).GetValue() == ">>")) {											// Should we call ourselves again?
 				return ParseShift(parser, ret);																						// Yes :)
 			}
+			
+			return ret;
 		}
 		
 		return left;																												// Nothing to do here, just return the l-val
@@ -462,6 +478,8 @@ class Expression {
 				(parser.Peek(0).GetValue() == "+" || parser.Peek(0).GetValue() == "-")) {											// Should we call ourselves again?
 				return ParseAddSub(parser, ret);																					// Yes :)
 			}
+			
+			return ret;
 		}
 		
 		return left;																												// Nothing to do here, just return the l-val
@@ -508,6 +526,8 @@ class Expression {
 				(parser.Peek(0).GetValue() == "*" || parser.Peek(0).GetValue() == "/" || parser.Peek(0).GetValue() == "%")) {		// Should we call ourselves again?
 				return ParseMulDivMod(parser, ret);																					// Yes :)
 			}
+			
+			return ret;
 		}
 		
 		return left;																												// Nothing to do here, just return the l-val

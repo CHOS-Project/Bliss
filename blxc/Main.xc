@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 06 of 2019, at 13:58 BRT
-// Last edited on July 09 of 2019, at 19:55 BRT
+// Last edited on July 10 of 2019, at 12:06 BRT
 
 method Main(args : String*) : Int32 {
 	if (args.Length == 0) {																							// This application needs at least one argument, do we have it?
@@ -40,8 +40,7 @@ method Main(args : String*) : Int32 {
 	}
 	
 	for (var i = 0; i < inputs.GetLength(); i++) {																	// Time to compile everything
-		var file : String = inputs.Get(i);																			// Get the filename
-		var tokens : List = Lexer.Lex(file, File.ReadAll(file));													// Lex it!
+		var file : String = inputs.Get(i), tokens : List = Lexer.Lex(file, File.ReadAll(file));						// Get the filename and lex the file!
 		
 		if (tokens == null) {
 			return 1;																								// Failed :(

@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 13:11 BRT
-// Last edited on July 09 of 2019, at 20:15 BRT
+// Last edited on July 10 of 2019, at 12:16 BRT
 
 class IfNode : Node {
 	method IfNode(cond : Node, tbody : Node, fbody : Node, filename : String, line, column) {
@@ -34,7 +34,8 @@ class IfNode : Node {
 			tbody = new CodeNode(bstart.GetFilename(), bstart.GetLine(), bstart.GetColumn());						// Full scope!
 			ok = CodeNode.ParseScope(parser, start, tbody.Children, "if");											// Parse it!
 		} else {
-			ok = (tbody = CodeNode.ParseSingle(parser, parser.Peek(0))) == null;									// Single instruction, parse it!
+			ok = (parser.Accept(TokenType.Semicolon) != null) ||
+				 ((fbody = CodeNode.ParseSingle(parser, parser.Peek(0))) != null);									// Single instruction, parse it!
 		}
 		
 		if (!ok) {																									// Failed?
@@ -44,9 +45,10 @@ class IfNode : Node {
 			
 			if (bstart != null) {
 				fbody = new CodeNode(bstart.GetFilename(), bstart.GetLine(), bstart.GetColumn());					// Full scope!
-				ok = CodeNode.ParseScope(parser, start, fbody.Children, "if");										// Parse it!
+				ok = CodeNode.ParseScope(parser, start, fbody.Children, "else");									// Parse it!
 			} else {
-				ok = (fbody = CodeNode.ParseSingle(parser, parser.Peek(0))) == null;								// Single instruction, parse it!
+				ok = (parser.Accept(TokenType.Semicolon) != null) ||
+					 ((fbody = CodeNode.ParseSingle(parser, parser.Peek(0))) != null);								// Single instruction, parse it!
 			}
 			
 			if (!ok) {
