@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 13:11 BRT
-// Last edited on July 08 of 2019, at 22:18 BRT
+// Last edited on July 09 of 2019, at 20:15 BRT
 
 class IfNode : Node {
 	method IfNode(cond : Node, tbody : Node, fbody : Node, filename : String, line, column) {
@@ -19,7 +19,7 @@ class IfNode : Node {
 		}
 		
 		var cond : Node = Expression.Parse(parser);																	// Let's parse the condition!
-			
+		
 		if (cond == null) {
 			return null;																							// Failed :(
 		} else if (parser.Accept(TokenType.CloseParen) == null) {													// Expect the closing parentheses
@@ -27,7 +27,7 @@ class IfNode : Node {
 							  "expected the closing parentheses after the if condition");
 			return null;
 		}
-
+		
 		var bstart : Token = parser.Accept(TokenType.OpenBrace), tbody : Node, fbody : Node, ok;					// Let's see if have only one instruction here or a whole scope
 		
 		if (bstart != null) {
@@ -52,6 +52,8 @@ class IfNode : Node {
 			if (!ok) {
 				return null;																						// Failed :(
 			}
+		} else {
+			fbody = null;
 		}
 		
 		return new IfNode(cond, tbody, fbody, start.GetFilename(), start.GetLine(), start.GetColumn());				// Create and return the if node

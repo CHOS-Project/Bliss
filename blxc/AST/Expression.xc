@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 20:51 BRT
-// Last edited on July 08 of 2019, at 22:27 BRT
+// Last edited on July 09 of 2019, at 20:19 BRT
 
 class Expression {
 	public static method Parse(parser : Parser) : Node {
@@ -700,6 +700,14 @@ class Expression {
 			}
 			
 			return ret;																												// Finally, return
+		} else if ((token = parser.AcceptVal(TokenType.Keyword, "new")) != null) {													// New
+			return NewNode.Parse(parser, token);
+		} else if ((token = parser.AcceptVal(TokenType.Keyword, "this")) != null) {													// This
+			return new ThisNode(token.GetFilename(), token.GetLine(), token.GetColumn());
+		} else if ((token = parser.AcceptVal(TokenType.Keyword, "null")) != null) {													// Null
+			return new NullNode(token.GetFilename(), token.GetLine(), token.GetColumn());
+		} else if ((token = parser.AcceptVal(TokenType.Keyword, "super")) != null) {												// Super/Base
+			return SuperNode.Parse(parser, token);
 		}
 		
 		Parser.PrintError(parser.Peek(0), "invalid expression term");																// ... We should not get here lol

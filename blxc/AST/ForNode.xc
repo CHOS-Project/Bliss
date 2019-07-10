@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 12:46 BRT
-// Last edited on July 09 of 2019, at 16:17 BRT
+// Last edited on July 09 of 2019, at 21:12 BRT
 
 class ForNode : Node {
 	method ForNode(init : Node, cond : Node, after : Node, body : Node, filename : String, line, column) {

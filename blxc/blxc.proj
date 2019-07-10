@@ -3,11 +3,12 @@
 	<files>
 		Main.xc Lexer.xc Parser.xc
 		
-		AST/Node.xc AST/Expression.xc AST/ArrayNode.xc AST/BinaryOperationNode.xc AST/BreakNode.xc
-		AST/ClassNode.xc AST/CodeNode.xc AST/ContinueNode.xc AST/ConvertNode.xc AST/DoNode.xc
-		AST/EnumNode.xc AST/ForNode.xc AST/IdentifierNode.xc AST/IfNode.xc AST/IndexerNode.xc
-		AST/IsNode.xc AST/MemberAccessNode.xc AST/MethodCallNode.xc AST/MethodNode.xc AST/NewNode.xc
-		AST/NullNode.xc AST/NumberNode.xc AST/ReturnNode.xc AST/StringNode.xc AST/SuperNode.xc
-		AST/ThisNode.xc AST/TypedefNode.xc AST/VariableNode.xc AST/WhileNode.xc
+		AST/Node.xc AST/Printer.xc AST/Expression.xc AST/ArrayNode.xc AST/BinaryOperationNode.xc
+		AST/BreakNode.xc AST/ClassNode.xc AST/CodeNode.xc AST/ContinueNode.xc AST/ConvertNode.xc
+		AST/DoNode.xc AST/EnumNode.xc AST/ForNode.xc AST/IdentifierNode.xc AST/IfNode.xc 
+		AST/IndexerNode.xc AST/IsNode.xc AST/MemberAccessNode.xc AST/MethodCallNode.xc
+		AST/MethodNode.xc AST/NewNode.xc AST/NullNode.xc AST/NumberNode.xc AST/ReturnNode.xc
+		AST/StringNode.xc AST/SuperNode.xc AST/ThisNode.xc AST/TypedefNode.xc AST/VariableNode.xc
+		AST/WhileNode.xc
 	</files>
 </bliss>

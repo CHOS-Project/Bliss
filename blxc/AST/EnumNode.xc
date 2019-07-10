@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 07 of 2019, at 22:27 BRT
-// Last edited on July 07 of 2019, at 22:42 BRT
+// Last edited on July 09 of 2019, at 19:57 BRT
 
 class EnumNode : Node {
 	private var name : String;

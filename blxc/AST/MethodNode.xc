@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 08 of 2019, at 13:32 BRT
-// Last edited on July 08 of 2019, at 20:44 BRT
+// Last edited on July 09 of 2019, at 20:47 BRT
 
 class MethodNode : Node {
 	private var pub, stat, name : String, type : String, args : List;
@@ -23,7 +23,7 @@ class MethodNode : Node {
 			return null;
 		} else if (parser.Accept(TokenType.OpenParen) != null) {														// Do we arguments?
 			while (!parser.EOF(0) && parser.Accept(TokenType.CloseParen) == null) {										// And let's parse this argument list
-				var arg : Node = VariableNode.Parse(parser, parser.Peek(0), 0, 1);										// Parse the current argument
+				var arg : Node = VariableNode.Parse(parser, parser.Peek(0), 1, 1);										// Parse the current argument
 				
 				if (arg == null) {
 					return null;																						// Oh, it failed :/
@@ -90,9 +90,9 @@ class MethodNode : Node {
 	
 	public method IsPublic : Int32 { return pub; }																		// Getters for the private variables
 	public method IsStatic : Int32 { return stat; }
-	public method GetName : Int32 { return name; }
-	public method GetType : Int32 { return type; }
-	public method GetArgs : Int32 { return args; }
+	public method GetName : String { return name; }
+	public method GetType : String { return type; }
+	public method GetArgs : List { return args; }
 }
 
 class NativeMethodNode : MethodNode {

@@ -1,7 +1,7 @@
 // File author is Ítalo Lima Marconato Matias
 //
 // Created on July 06 of 2019, at 13:58 BRT
-// Last edited on July 08 of 2019, at 17:42 BRT
+// Last edited on July 09 of 2019, at 19:55 BRT
 
 method Main(args : String*) : Int32 {
 	if (args.Length == 0) {																							// This application needs at least one argument, do we have it?
@@ -52,6 +52,8 @@ method Main(args : String*) : Int32 {
 		if (ast == null) {
 			return 1;																								// Failed :(
 		}
+		
+		ASTPrinter.Print(ast);																						// Print the AST!
 	}
 	
 	return 0;
